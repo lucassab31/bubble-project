@@ -1,0 +1,19 @@
+.quantity-selector-container {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.quantity-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #979696;
+    border: 1px solid #979696;
+    cursor: pointer;
+}
