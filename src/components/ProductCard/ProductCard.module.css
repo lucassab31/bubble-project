@@ -96,6 +96,10 @@
     margin-bottom: 40px;
 }
 
+.product-details-quantity {
+    margin-bottom: 70px;
+}
+
 .product-option-name span {
     font-size: 3rem;
     color: red;

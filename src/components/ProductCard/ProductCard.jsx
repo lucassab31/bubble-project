@@ -2,9 +2,11 @@ import style from './ProductCard.module.css'
 import Modal from '../Modal/Modal';
 import { useState, useEffect, useRef } from 'react'
 import OptionInput from '../OptionInput/OptionInput';
+import QuantitySelector from '../QuantitySelector/QuantitySelector';
 
 export default function ProductCard({ productDetails, addToCart, cart, selectedCategory }) {
   const [showProductDetails, setShowProductDetails] = useState(false);
+  const [productQuantity, setProductQuantity] = useState(1);
   const [formError, setFormError] = useState();
   const form = useRef();
   const productUniqueOptions = Object.keys(productDetails.options.unique);
@@ -42,7 +44,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
 
     if(productIndex !== -1) {
       const newCart = [...cart];
-      newCart.splice(productIndex, 1, {...cart[productIndex], quantité: cart[productIndex].quantité + 1 });
+      newCart.splice(productIndex, 1, {...cart[productIndex], quantité: productQuantity });
       addToCart(newCart);
       return
     }
@@ -60,7 +62,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
       price = [price, ...extrasPrices].reduce((price, currValue) => price + currValue);
     }
 
-    addToCart([...cart, {...productDetails, options: options, quantité: 1, prix: price}])
+    addToCart([...cart, {...productDetails, options: options, quantité: productQuantity, prix: price}])
   };
 
   return (
@@ -129,6 +131,9 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
             <div className={style["product-details-allergens"]}>
               <div className={style["product-details-allergens__title"]}>Allergènes</div>
               <ul className={style["product-details-allergens"]}>{productDetails.allergènes.map((allergen, i) => <li key={i}>{allergen}</li>)}</ul>
+            </div>
+            <div className={style["product-details-quantity"]}>
+              <QuantitySelector quantity={productQuantity} setQuantity={setProductQuantity} />
             </div>
             <button type='submit'>
               Ajouter
