@@ -7,7 +7,8 @@ import QuantitySelector from '../QuantitySelector/QuantitySelector';
 export default function ProductCard({ productDetails, addToCart, cart, selectedCategory }) {
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [productQuantity, setProductQuantity] = useState(1);
-  const [formError, setFormError] = useState();
+  const [formError, setFormError] = useState("");
+  const [validationMessage, setValidationMessage] = useState("");
   const form = useRef();
   const productUniqueOptions = Object.keys(productDetails.options.unique);
   const productMultipleOptions = Object.keys(productDetails.options.multiple);
@@ -15,6 +16,8 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
 
   useEffect(() => {
     setFormError("");
+    setValidationMessage("");
+    setProductQuantity(1);
   }, [showProductDetails])
 
   const addProductToCart = (e) => {
@@ -39,13 +42,16 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
     }
 
     setFormError("");
+    setValidationMessage("");
 
     const productIndex = cart.findIndex(product => product.id === productDetails.id && JSON.stringify(product.options) === JSON.stringify(options))
 
     if(productIndex !== -1) {
       const newCart = [...cart];
       newCart.splice(productIndex, 1, {...cart[productIndex], quantité: productQuantity });
+      setValidationMessage(`La quantité du ${productDetails.nom} a bien été modifiée.`);
       addToCart(newCart);
+      setShowProductDetails(false);
       return
     }
     
@@ -62,7 +68,9 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
       price = [price, ...extrasPrices].reduce((price, currValue) => price + currValue);
     }
 
+    setValidationMessage(`${productQuantity} ${productDetails.nom} ${productQuantity > 1 ? "ont été ajoutés au panier" : "a été ajouté au panier"}.`);
     addToCart([...cart, {...productDetails, options: options, quantité: productQuantity, prix: price}])
+    setShowProductDetails(false);
   };
 
   return (
@@ -86,8 +94,9 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
             <div className={style["product-details-name"]}>{productDetails.nom}</div>
             <div className={style["product-details-description"]}>{productDetails.description}</div>
             {formError && (<div className={style["error"]}>{formError}</div>)}
+            {validationMessage && (<div className={style["validation"]}>{validationMessage}</div>)}
             <div className={style["product-details-type"]}>
-              <div className={style["product-details-type__title"]}>{selectedCategory.category === "boissons" ? "Goût" : "Viande"}</div>
+              <div className={style["product-details-type__title"]}>{selectedCategory.category === "boissons" ? "Base" : "Viande"}</div>
               <div className={style["product-details-type__name"]}>
                 <OptionInput id={productDetails.type} name={productDetails.type} value={productDetails.type} isActive={true} />
               </div>
@@ -109,7 +118,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
                 <div key={i} className={style["product-option-container"]}>
                   <div className={style["product-option-name"]}>{option.charAt(0).toUpperCase() + option.slice(1)} <span>*</span>: </div>
                     <div className={style["product-option-inputs"]}>{productDetails.options.unique[option].map((optionValues, i) => Array.isArray(optionValues) ? 
-                      <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValues[0]} priceInfo={optionValues[1]} />
+                      <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValues[0]} price={optionValues[1]} />
                     : 
                       <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValues} />
                     )}
@@ -121,7 +130,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
                 <div key={i} className={style["product-option-container"]}>
                   <div className={style["product-option-name"]}>{option.charAt(0).toUpperCase() + option.slice(1)} : </div>
                     <div className={style["product-option-inputs"]}>{productDetails.options.multiple[option].map((optionValues, i) => Array.isArray(optionValues) ? 
-                      <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValues[0]} priceInfo={optionValues[1]} multiple />
+                      <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValues[0]} price={optionValues[1]} extra={option === "extras"} multiple />
                     : 
                       <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValues} multiple />
                    )}
@@ -135,7 +144,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
             <div className={style["product-details-quantity"]}>
               <QuantitySelector quantity={productQuantity} setQuantity={setProductQuantity} />
             </div>
-            <button type='submit'>
+            <button className={style["add-cart-button"]} type="submit">
               Ajouter
             </button>
           </form>
