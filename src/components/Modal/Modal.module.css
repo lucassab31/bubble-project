@@ -14,12 +14,16 @@
 }
 
 .modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: fixed;
     bottom: 0;
     left: 0;
+    min-width: 800px;
     width: 100%;
     height: 80%;
-    padding: 130px 60px 200px;
+    padding: 100px 60px 80px;
     background: #fff;
     border-radius: 70px 70px 0 0;
     z-index: 2;
@@ -31,14 +35,8 @@
 }
 
 .close-icon {
-    width: fit-content;
-    margin: 0 auto;
-}
-
-.close-icon svg {
-    width: 60px;
-    height: 60px;
     cursor: pointer;
+    margin-top: auto;
 }
 
 @keyframes showModal {

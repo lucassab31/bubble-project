@@ -70,6 +70,151 @@
     animation: hideCartDetails 0.5s forwards;
 }
 
+.return-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(to bottom, #FFA8A8, #FFD984);
+    align-self: flex-start;
+    font-size: 5rem;
+    cursor: pointer;
+}
+
+.cart-form, .payment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: "Montserrat", sans-serif;
+    padding-right: 20px;
+    min-height: 320px;
+    width: 80%;
+    margin-bottom: 50px;
+}
+
+.cart-form__title, .payment-form__title {
+    font-size: 5rem;
+    font-weight: bold;
+    margin-bottom: 100px;
+}
+
+.payment-form__subtitle {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 90px;
+}
+
+.cart-list {
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 3rem;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+hr {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.payment-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    column-gap: 50px;
+    font-size: 3rem;
+    margin-bottom: 50px;
+}
+
+.payment-option:first-of-type {
+    column-gap: 50px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    flex-grow: 1;
+}
+
+.payment-option input {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.payment-option label {
+    cursor: pointer;
+}
+
+.contact-info-container, .card-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 100px;
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+.contact-info, .card-info {
+    width: 100%;
+    height: 60px;
+}
+
+.contact-info input, .card-info input {
+    width: 100%;
+    height: 100%;
+    font-size: 2.5rem;
+    border: none;
+    border-bottom: 1px solid #222;
+    background-color: transparent;
+    outline: none;
+    transition: border-bottom 0.1s ease-in-out;
+}
+
+.contact-info input:focus, .card-info input:focus {
+    border-bottom: 3px solid #000;
+}
+
+.card-input-group {
+    display: flex;
+    column-gap: 40px;
+    width: 100%;
+}
+
+.order-button, .payment-button {
+    max-width: 900px;
+    width: 100%;
+    padding: 30px 50px;
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: bold;
+    background-color: #FF5800;
+    border-radius: 50px;
+    border: none;
+    margin-bottom: 70px;
+    cursor: pointer;
+}
+
+.error {
+    font-size: 3rem;
+    text-align: center;
+    color: red;
+    margin-bottom: 50px;
+}
+
 @keyframes showCartDetails {
     from {
         transform: translateY(100%);

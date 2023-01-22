@@ -12,8 +12,6 @@ export default function Menu() {
     const [selectedFilter, setSelectedFilter] = useState("");
     const [cart, setCart] = useState([]);
 
-    console.log("ARTICLES DU PANIER", cart);
-
     useEffect(() => {
         if(selectedFilter) setSelectedFilter("");
     }, [selectedCategory.category, selectedCategory.categoryVariety])
@@ -39,7 +37,7 @@ export default function Menu() {
                 <div className={style["product-cards-container"]}>
                     {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} cart={cart} addToCart={setCart} selectedCategory={selectedCategory} />)}
                 </div>
-                <Cart />
+                <Cart cart={cart} setCart={setCart} />
             </div>
         </div>
     )

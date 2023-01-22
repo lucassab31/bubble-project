@@ -1,8 +1,13 @@
 import style from './QuantitySelector.module.css'
 
-export default function QuantitySelector({ quantity, setQuantity }) {
-
+export default function QuantitySelector({ quantity, setQuantity, minimum }) {
   const modifyQuantity = (action) => {
+    let minQuantity = 1;
+
+    if(minimum !== undefined) {
+      minQuantity = minimum; 
+    }
+
     if (action === "add") {
       if (quantity + 1 <= 5) {
         setQuantity(quantity + 1)
@@ -10,7 +15,7 @@ export default function QuantitySelector({ quantity, setQuantity }) {
       return
     }
 
-    if (quantity - 1 >= 1) {
+    if (quantity - 1 >= minQuantity) {
       setQuantity(quantity - 1)
     }
   };
