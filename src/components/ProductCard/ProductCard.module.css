@@ -125,7 +125,13 @@
     margin-bottom: 50px;
 }
 
-button {
+.validation {
+    text-align: center;
+    color: rgb(53, 175, 53);
+    margin-bottom: 50px;
+}
+
+.add-cart-button {
     padding: 20px 50px;
     color: #fff;
     font-size: 2.5rem;
