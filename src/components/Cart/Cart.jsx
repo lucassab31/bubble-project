@@ -5,13 +5,18 @@ import CartItem from '../CartItem/CartItem';
 import CreditCardIcon from "../../assets/svg/credit-card-icon.svg"
 import CashIcon from "../../assets/svg/cash-icon.svg"
 import { useNavigate } from 'react-router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 export default function Cart({ cart, setCart }) {
     const [showCart, setShowCart] = useState(false);
     const [formError, setFormError] = useState();
     const [paymentMethod, setPaymentMethod] = useState();
     const navigate = useNavigate();
+    const form = useRef();
+    const orderNumber = Math.floor(Math.random() * (300 - 100 + 1)) + 100;
+    const orderRecap = [cart.map(product => `Produit : ${product.nom} \n${Object.entries(product.options).map(option => `${option[0].charAt(0).toUpperCase() + option[0].slice(1)} : ${option[1].length > 0 ? option[1].join(", ") : "Aucun"}`).join("\n")}\nQuantité : ${product.quantité}\nPrix : ${product.prix}€\n${product.options.extras.length > 0 ? `Prix des extras : ${product.options.extras.map((extra, i) => `${extra} - ${product["prix des extras"][i]}€`).join(", ")}` : ""}\n\n-----\n\n`).join(""), `Montant total : ${cart.length > 0 ? cart.map(product => product.quantité * product.prix).reduce((price, currValue) => price + currValue) : 0}€`].join("");
+
 
     useEffect(() => {
         setFormError("");
@@ -34,7 +39,6 @@ export default function Cart({ cart, setCart }) {
     const payOrder = (e) => {
         e.preventDefault();
 
-
         const contactInfo = {
             firstName: e.target["first-name"].value.trim(),
             lastName: e.target["last-name"].value.trim(),
@@ -46,8 +50,8 @@ export default function Cart({ cart, setCart }) {
         if (paymentMethod === "cash") {
             if (Object.keys(contactInfo).every(key => contactInfo[key] !== "")) {
                 if (/^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$/.test(contactInfo.mail)) {
-                    const orderNumber = Math.floor(Math.random() * (300 - 100 + 1) ) + 100;
                     navigate(`/order-recap/${orderNumber}`, { state: cart })
+                    sendEmail();
                     return
                 }
 
@@ -91,8 +95,8 @@ export default function Cart({ cart, setCart }) {
             }
 
             if (validInputs) {
-                const orderNumber = Math.floor(Math.random() * (300 - 100 + 1) ) + 100;
-                navigate(`/order-recap/${orderNumber}`, { state: cart })
+                navigate(`/order-recap/${orderNumber}`, { state: cart });
+                sendEmail();
                 return
             } else {
                 setFormError(errorMessage);
@@ -103,6 +107,15 @@ export default function Cart({ cart, setCart }) {
 
         setFormError("Veuillez remplir tous les champs.")
 
+    };
+
+    const sendEmail = () => {
+        emailjs.sendForm('service_zkcmmvy', 'template_hg10m1i', form.current, 'UXRnVF4HinCc3ncEk')
+            .then((result) => {
+
+            }, (error) => {
+                console.error(error);
+            });
     };
 
     return (
@@ -122,7 +135,7 @@ export default function Cart({ cart, setCart }) {
                             <div onClick={() => setPaymentMethod("")} className={style["return-icon"]}>
                                 <i className="bi bi-arrow-left-short"></i>
                             </div>
-                            <form onSubmit={payOrder} className={style["payment-form"]}>
+                            <form ref={form} onSubmit={payOrder} className={style["payment-form"]}>
                                 <div className={style["payment-form__title"]}>Paiement</div>
 
                                 <div className={style["payment-form__subtitle"]}>Informations personnelles</div>
@@ -138,6 +151,12 @@ export default function Cart({ cart, setCart }) {
                                         <input type="text" name="mail" id="mail" placeholder='Adresse mail' />
                                     </div>
                                 </div>
+
+                                <div className={style["recap"]}>
+                                    <input type="text" name="order-number" value={orderNumber} hidden readOnly />
+                                    <textarea name="recap" value={orderRecap} hidden readOnly></textarea>
+                                </div>
+
 
                                 {paymentMethod === "card" ? (
                                     <>
