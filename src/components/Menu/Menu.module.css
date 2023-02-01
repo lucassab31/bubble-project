@@ -54,7 +54,7 @@
     flex-direction: column;
     align-items: center;
     row-gap: 100px;
-    width: 100%;
+    flex-grow: 1;
     background: linear-gradient(to bottom, #FFA8A8, #FFD984);
     padding: 280px 80px 100px;
 }

@@ -1,6 +1,6 @@
 import style from './ProductCard.module.css'
 import Modal from '../Modal/Modal';
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import OptionInput from '../OptionInput/OptionInput';
 import QuantitySelector from '../QuantitySelector/QuantitySelector';
 
@@ -9,7 +9,6 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
   const [productQuantity, setProductQuantity] = useState(1);
   const [formError, setFormError] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
-  const form = useRef();
   const productUniqueOptions = Object.keys(productDetails.options.unique);
   const productMultipleOptions = Object.keys(productDetails.options.multiple);
   const productOptions = [...productUniqueOptions, ...productMultipleOptions];
@@ -36,7 +35,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
     }
 
     if(missingFields.length > 0) {
-      form.current.scrollTop = 0;
+      e.target.scrollTop = 0;
       setFormError(`Veuillez remplir ${missingFields.length > 1 ? `les champs ${missingFields.map((field, i) => i === missingFields.length - 1 ? `et "${field}"` : `"${field}"`).join(", ")}.` : `le champ "${missingFields[0]}".`}`);
       return;
     }
@@ -49,9 +48,9 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
     if(productIndex !== -1) {
       const newCart = [...cart];
       newCart.splice(productIndex, 1, {...cart[productIndex], quantité: productQuantity });
+      e.target.scrollTop = 0;
       setValidationMessage(`La quantité du ${productDetails.nom} a bien été modifiée.`);
       addToCart(newCart);
-      setShowProductDetails(false);
       return
     }
     
@@ -63,14 +62,16 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
       price = Number(productDetails.options.unique.taille.find(arr => arr.includes(options.taille[0]))[1].replace("€", ""));
     }
 
+    let extrasPrices = [];
+
     if(options.extras.length > 0) {
-      const extrasPrices = options.extras.map(extra => Number(productDetails.options.multiple.extras.find(extraArr => extraArr[0] === extra)[1].replace("€", "")));
+      extrasPrices = options.extras.map(extra => Number(productDetails.options.multiple.extras.find(extraArr => extraArr[0] === extra)[1].replace("€", "")));
       price = [price, ...extrasPrices].reduce((price, currValue) => price + currValue);
     }
 
+    e.target.scrollTop = 0;
     setValidationMessage(`${productQuantity} ${productDetails.nom} ${productQuantity > 1 ? "ont été ajoutés au panier" : "a été ajouté au panier"}.`);
-    addToCart([...cart, {...productDetails, options: options, quantité: productQuantity, prix: price}])
-    setShowProductDetails(false);
+    addToCart([...cart, {...productDetails, options: options, quantité: productQuantity, prix: price, "prix des extras": extrasPrices}])
   };
 
   return (
@@ -86,15 +87,14 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
       {showProductDetails && (
         <Modal setShowModal={setShowProductDetails}>
           <form 
-          ref={form}
           onSubmit={addProductToCart} className={style["product-details-form"]}>
+            {formError && (<div className={style["error"]}>{formError}</div>)}
+            {validationMessage && (<div className={style["validation"]}>{validationMessage}</div>)}
             <div className={style["product-details-image"]}>
               <img src={productDetails.image} alt={`image de ${productDetails.nom}`} />
             </div>
             <div className={style["product-details-name"]}>{productDetails.nom}</div>
             <div className={style["product-details-description"]}>{productDetails.description}</div>
-            {formError && (<div className={style["error"]}>{formError}</div>)}
-            {validationMessage && (<div className={style["validation"]}>{validationMessage}</div>)}
             <div className={style["product-details-type"]}>
               <div className={style["product-details-type__title"]}>{selectedCategory.category === "boissons" ? "Base" : "Viande"}</div>
               <div className={style["product-details-type__name"]}>
