@@ -3,7 +3,8 @@
 }
 
 .input:checked + .option {
-    border: 2px solid #34C1FF;
+    color: #fff;
+    background-color: #222;
 }
 
 .option {
@@ -30,6 +31,7 @@
     border-left: 1px solid #d6d6d6;
 }
 
-.option--active, .option:hover {
-    border: 2px solid #34C1FF;
+.option--active {
+    color: #fff;
+    background-color: #222;
 }

@@ -10,22 +10,21 @@
 }
 
 .modal-overlay--hidden {
-    display: none;
+    background-color: transparent;
 }
 
 .modal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     position: fixed;
     bottom: 0;
     left: 0;
-    min-width: 800px;
+    min-width: 700px;
     width: 100%;
+    min-height: 300px;
     height: 80%;
-    padding: 100px 60px 80px;
+    padding: 60px;
     background: #fff;
     border-radius: 70px 70px 0 0;
+    overflow-y: auto;
     z-index: 2;
     animation: showModal 0.5s forwards;
 }
@@ -35,8 +34,9 @@
 }
 
 .close-icon {
+    width: fit-content;
+    margin: 50px auto 0;
     cursor: pointer;
-    margin-top: auto;
 }
 
 @keyframes showModal {
