@@ -192,7 +192,7 @@ export default function Cart({ cart, setCart }) {
                             </ul>
                             <div className={style["cart-total"]}>
                                 <div className={style["cart-total__title"]}>Total</div>
-                                <div className={style["cart-total__amount"]}>{cart.length > 0 ? cart.map(product => product.quantité * product.prix).reduce((price, currValue) => price + currValue) : 0}€</div>
+                                <div className={style["cart-total__amount"]}>{cart.length > 0 ? cart.map(product => product.quantité * product.prix).reduce((price, currValue) => price + currValue).toFixed(2) : 0}€</div>
                             </div>
                             <hr />
                             {cart.length > 0 && (

@@ -59,7 +59,7 @@ export default function CartItem({ productInfo, cart, setCart }) {
                             Extra {extra.toLowerCase()}
                         </div>
                     </div>))}
-                <div className={style["cart-item-price"]}>{productInfo.prix}€</div>
+                <div className={style["cart-item-price"]}>{productInfo.prix.toFixed(2)}€</div>
             </div>
             <div className={style["cart-item-quantity"]}>
                 <QuantitySelector quantity={productQuantity} setQuantity={setProductQuantity} minimum={0} />

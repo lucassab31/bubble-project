@@ -23,8 +23,8 @@
     animation: selectItem 0.5s forwards;
 }
 
-.category-varieties {
-    animation: displayVarieties 0.5s forwards;
+.menu-subcategories {
+    animation: displaySubcategories 0.8s forwards;
 }
 
 @keyframes selectItem {
@@ -37,7 +37,7 @@
     }
 }
 
-@keyframes displayVarieties {
+@keyframes displaySubcategories {
     from {
         opacity: 0;
     }
