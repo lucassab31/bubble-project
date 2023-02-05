@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/bubble-project/static/css/main.33ab7ae1.css",
-    "main.js": "/bubble-project/static/js/main.2df40990.js",
+    "main.css": "/bubble-project/static/css/main.9d6f1f6d.css",
+    "main.js": "/bubble-project/static/js/main.cf289f9b.js",
     "static/media/cash-icon.svg": "/bubble-project/static/media/cash-icon.395e1f952647338a27c32146e6d170be.svg",
     "static/media/bootstrap-icons.woff?": "/bubble-project/static/media/bootstrap-icons.6959d0d983ee318f8880.woff",
     "static/media/bootstrap-icons.woff2?": "/bubble-project/static/media/bootstrap-icons.b2e5aab643c6f0fd2da6.woff2",
@@ -22,11 +22,11 @@
     "static/media/credit-card-icon.svg": "/bubble-project/static/media/credit-card-icon.93d45d6537a0be6d0223f7f25243ccc4.svg",
     "index.html": "/bubble-project/index.html",
     "static/media/close-icon.svg": "/bubble-project/static/media/close-icon.ce49c7cecc1a10cd0192ff2b61e03024.svg",
-    "main.33ab7ae1.css.map": "/bubble-project/static/css/main.33ab7ae1.css.map",
-    "main.2df40990.js.map": "/bubble-project/static/js/main.2df40990.js.map"
+    "main.9d6f1f6d.css.map": "/bubble-project/static/css/main.9d6f1f6d.css.map",
+    "main.cf289f9b.js.map": "/bubble-project/static/js/main.cf289f9b.js.map"
   },
   "entrypoints": [
-    "static/css/main.33ab7ae1.css",
-    "static/js/main.2df40990.js"
+    "static/css/main.9d6f1f6d.css",
+    "static/js/main.cf289f9b.js"
   ]
 }
