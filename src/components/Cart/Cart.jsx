@@ -15,6 +15,7 @@ export default function Cart({ cart, setCart }) {
     const navigate = useNavigate();
     const form = useRef();
     const orderNumber = Math.floor(Math.random() * (300 - 100 + 1)) + 100;
+    const tableNumber = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
     const orderRecap = [cart.map(product => `Produit : ${product.nom} \n${Object.entries(product.options).map(option => `${option[0].charAt(0).toUpperCase() + option[0].slice(1)} : ${option[1].length > 0 ? option[1].join(", ") : "Aucun"}`).join("\n")}\nQuantité : ${product.quantité}\nPrix : ${product.prix}€\n${product.options.extras.length > 0 ? `Prix des extras : ${product.options.extras.map((extra, i) => `${extra} - ${product["prix des extras"][i]}€`).join(", ")}` : ""}\n\n-----\n\n`).join(""), `Montant total : ${cart.length > 0 ? cart.map(product => product.quantité * product.prix).reduce((price, currValue) => price + currValue) : 0}€`].join("");
 
 
@@ -50,7 +51,7 @@ export default function Cart({ cart, setCart }) {
         if (paymentMethod === "cash") {
             if (Object.keys(contactInfo).every(key => contactInfo[key] !== "")) {
                 if (/^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$/.test(contactInfo.mail)) {
-                    navigate(`/order-recap/${orderNumber}`, { state: cart })
+                    navigate(`/order-recap/${orderNumber}`, { state: {cart, tableNumber} })
                     sendEmail();
                     return
                 }
@@ -95,7 +96,7 @@ export default function Cart({ cart, setCart }) {
             }
 
             if (validInputs) {
-                navigate(`/order-recap/${orderNumber}`, { state: cart });
+                navigate(`/order-recap/${orderNumber}`, { state: {cart, tableNumber} })
                 sendEmail();
                 return
             } else {
@@ -153,8 +154,9 @@ export default function Cart({ cart, setCart }) {
                                 </div>
 
                                 <div className={style["recap"]}>
-                                    <input type="text" name="order-number" value={orderNumber} hidden readOnly />
                                     <textarea name="recap" value={orderRecap} hidden readOnly></textarea>
+                                    <input type="text" name="order-number" value={orderNumber} hidden readOnly />
+                                    <input type="text" name="table-number" value={tableNumber} hidden readOnly />
                                 </div>
 
 
