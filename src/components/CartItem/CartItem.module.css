@@ -24,7 +24,8 @@
 
 .cart-item-info {
     align-self: flex-start;
-    flex-grow: 1;
+    width: 100%;
+    max-width: 350px;
     flex-shrink: 0;
 }
 
@@ -64,6 +65,7 @@
     color: #979696;
     border: 1px solid #979696;
     border-radius: 50%;
+    flex-shrink: 0;
     cursor: pointer;
 }
 

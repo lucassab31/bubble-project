@@ -268,7 +268,7 @@ export const data = {
             options: {
               multiple: {
                 légumes: ["Concombre", "Carotte", "Coriandre"],
-                extras: [{ nom: "Sauce piquante", prix: 2 }],
+                extras: [{ nom: "Sauce piquante", prix: 1 }],
               },
               unique: {
                 "sauce piquante": ["Oui", "Non"],
@@ -288,7 +288,7 @@ export const data = {
             options: {
               multiple: {
                 légumes: ["Concombre", "Carotte", "Coriandre"],
-                extras: [{ nom: "Sauce piquante", prix: 2 }],
+                extras: [{ nom: "Sauce piquante", prix: 1 }],
               },
               unique: {
                 "sauce piquante": ["Oui", "Non"],
@@ -308,7 +308,7 @@ export const data = {
             options: {
               multiple: {
                 légumes: ["Concombre", "Carotte", "Coriandre"],
-                extras: [{ nom: "Sauce piquante", prix: 2 }],
+                extras: [{ nom: "Sauce piquante", prix: 1 }],
               },
               unique: {
                 "source de protéines": ["Tofu", "Simili canard-laqué"],

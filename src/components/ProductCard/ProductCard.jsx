@@ -130,7 +130,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
                       <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValue.nom} price={optionValue.prix} />
                       :
                       <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValue} onSelectOption={() => {
-                        if(productDetails.allergènes[optionValue.toLowerCase()]) {
+                        if(productDetails.allergènes && productDetails.allergènes[optionValue.toLowerCase()]) {
                           setAllergens(productDetails.allergènes[optionValue.toLowerCase()]);
                           return
                         }

@@ -14,15 +14,17 @@ export default function Menu() {
 
     return (
         <div className={style["menu"]}>
-            <div className={style["menu-sidebar"]}>
-                <div className={style["menu-logo"]}>
-                    <img src={LogoBubulle} alt="Logo Bubulle" />
+            <div className={style["menu-sidebar-container"]}>
+                <div className={style["menu-sidebar"]}>
+                    <div className={style["menu-logo"]}>
+                        <img src={LogoBubulle} alt="Logo Bubulle" />
+                    </div>
+                    <div className={style["menu-categories-title"]}>Catégories</div>
+                    <ul className={style["menu-categories"]}>
+                        {Object.keys(data.catégories).map((category, i) => <MenuCategory key={i} name={category} isActive={selectedCategory.category === category} selectedCategory={selectedCategory} selectCategory={setSelectedCategory} setFilter={setSelectedFilter} />)}
+                    </ul>
+                    <div className={style["menu-signature"]}>Made with ❤️ <br /> by Yolène CONSTABLE</div>
                 </div>
-                <div className={style["menu-categories-title"]}>Catégories</div>
-                <ul className={style["menu-categories"]}>
-                    {Object.keys(data.catégories).map((category, i) => <MenuCategory key={i} name={category} isActive={selectedCategory.category === category} selectedCategory={selectedCategory} selectCategory={setSelectedCategory} setFilter={setSelectedFilter} />)}
-                </ul>
-                <div className={style["menu-signature"]}>Made with ❤️ <br /> by Yolène CONSTABLE, Aline HY & Maria GUY DE FONTGALLAND</div>
             </div>
             <div className={style["menu-gallery"]}>
                 {selectedCategory.subcategory && (
@@ -30,10 +32,10 @@ export default function Menu() {
                         {data.catégories[selectedCategory.category][selectedCategory.subcategory]["filtres"].map((filterName, i) => <Filter key={i} name={filterName} isActive={selectedFilter === filterName} selectedCategory={selectedCategory} selectFilter={setSelectedFilter} filterProducts={setSelectedCategory} />)}
                     </div>
                 )}
+                <Cart cart={cart} setCart={setCart} />
                 <div className={style["product-cards-container"]}>
                     {selectedCategory.products.map((product, i) => <ProductCard key={i} productDetails={product} cart={cart} addToCart={setCart} selectedCategory={selectedCategory} />)}
                 </div>
-                <Cart cart={cart} setCart={setCart} />
             </div>
         </div>
     )

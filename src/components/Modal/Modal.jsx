@@ -18,10 +18,10 @@ export default function Modal({ setShowModal, children }) {
         <>
             <div onClick={hideModal} className={style["modal-overlay"]}></div>
             <div ref={modal} className={style["modal"]}>
-                {children}
                 <div onClick={hideModal} className={style["close-icon"]}>
                     <img src={CloseIcon} alt="icône fermeture" />
                 </div>
+                {children}
             </div>
         </>
     )
