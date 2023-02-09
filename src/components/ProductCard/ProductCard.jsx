@@ -125,7 +125,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
               <div className={style["product-options"]}>
                 {productUniqueOptions.map((option, i) => (
                   <div key={i} className={style["product-option-container"]}>
-                    <div className={style["product-option-name"]}>{option.charAt(0).toUpperCase() + option.slice(1)} <span>*</span>: </div>
+                    <div className={style["product-option-name"]}>{option} <span>*</span>: </div>
                     <div className={style["product-option-inputs"]}>{productDetails.options.unique[option].map((optionValue, i) => typeof optionValue === "object" ?
                       <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValue.nom} price={optionValue.prix} />
                       :
@@ -144,7 +144,7 @@ export default function ProductCard({ productDetails, addToCart, cart, selectedC
               <div className={style["product-options"]}>
                 {productMultipleOptions.map((option, i) => (
                   <div key={i} className={style["product-option-container"]}>
-                    <div className={style["product-option-name"]}>{option.charAt(0).toUpperCase() + option.slice(1)} : </div>
+                    <div className={style["product-option-name"]}>{option} : </div>
                     <div className={style["product-option-inputs"]}>{productDetails.options.multiple[option].map((optionValue, i) => typeof optionValue === "object" ?
                       <OptionInput key={i} id={`${option}-option-${i}`} name={option} value={optionValue.nom} price={optionValue.prix} extra={option === "extras"} multiple />
                       :
